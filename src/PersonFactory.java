@@ -8,19 +8,19 @@ public class PersonFactory {
     }
 
     public void addPerson(Person person) {
-        for (int i=0; i<allPersons.size(); i++) {
-            String currentLastName = allPersons.get(i).getLastName();
-            if (person.getLastName().compareTo(currentLastName) == 0) {
-                allPersons.add(i, person);
-                break;
-            }
-            else if (person.getLastName().compareTo(currentLastName) < 0) {
-                allPersons.add(i, person);
-                break;
-            }
+        if (allPersons.size() == 0) {
+            allPersons.add(person);
+            return;
         }
-        if (allPersons.size() <= 1) allPersons.add(person);
-        Collections.reverse(allPersons);
+
+        int index = 0;
+        for (int i=0; i<allPersons.size(); i++) {
+            if (person.getLastName().compareTo(allPersons.get(i).getLastName()) < 0) {
+                allPersons.add(index, person);
+                break;
+            }
+            index++;
+        }
     }
 
     public ArrayList<Person> under18() {
